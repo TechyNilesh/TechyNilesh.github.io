@@ -7,7 +7,7 @@ import { ThemeProvider } from './components/theme-provider'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/nilesh-verma-portfolio-website">
       <ThemeProvider
         attribute="class"
         defaultTheme="dark"
