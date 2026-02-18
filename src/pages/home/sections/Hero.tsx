@@ -40,7 +40,9 @@ export default function Hero() {
         <div className="absolute inset-0 rounded-full bg-primary/20 blur-2xl scale-110" />
         <div className="profile-image w-32 h-32 sm:w-40 sm:h-40 md:w-44 md:h-44 relative z-10 group transition-transform duration-500 hover:scale-[1.02]">
           <img
-            src="/profile.png"
+            src="/profile.webp"
+            loading="eager"
+            decoding="async"
             alt="Nilesh Verma"
             className="w-full h-full object-cover"
           />

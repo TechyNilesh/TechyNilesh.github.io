@@ -14,7 +14,7 @@ const personJsonLd = {
   '@type': 'Person',
   name: 'Nilesh Verma',
   url: 'https://nileshverma.com',
-  image: 'https://nileshverma.com/profile.png',
+  image: 'https://nileshverma.com/profile.webp',
   jobTitle: 'Research Scholar',
   affiliation: {
     '@type': 'Organization',
@@ -44,7 +44,7 @@ export default function HomePage() {
   return (
     <main>
       <SEO
-        title="Nilesh Verma - ML Researcher & AI Engineer"
+        title="Nilesh Verma - Research Scholar & AI Engineer"
         description="Research Scholar at University of Waikato specializing in AutoML for Data Streams. Expertise in AI, deep learning, and open-source contributions."
         path="/"
         type="profile"

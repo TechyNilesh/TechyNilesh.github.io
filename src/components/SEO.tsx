@@ -1,6 +1,6 @@
 const SITE_URL = 'https://nileshverma.com';
 const SITE_NAME = 'Nilesh Verma';
-const DEFAULT_IMAGE = `${SITE_URL}/profile.png`;
+const DEFAULT_IMAGE = `${SITE_URL}/profile.webp`;
 const TWITTER_HANDLE = '@techynilesh';
 
 interface SEOProps {
