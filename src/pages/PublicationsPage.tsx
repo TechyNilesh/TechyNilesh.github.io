@@ -24,7 +24,7 @@ function PdfThumbnail({
 }: {
   src: string;
   className?: string;
-  onClick: () => void;
+  onClick?: () => void;
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [loaded, setLoaded] = useState(false);
@@ -61,7 +61,7 @@ function PdfThumbnail({
 
   return (
     <div
-      className={`overflow-hidden rounded-xl bg-white relative cursor-pointer group ${className}`}
+      className={`overflow-hidden rounded-xl bg-white relative group ${onClick ? 'cursor-pointer' : 'cursor-default'} ${className}`}
       onClick={onClick}
     >
       <canvas
@@ -307,6 +307,9 @@ export default function PublicationsPage() {
           const bibFile = pub.mediaFolder ? getBibFile(pub.mediaFolder) : null;
           const lightboxMedia = allMedia.filter(m => m.type !== 'document');
           const hasMedia = allMedia.length > 0;
+          const pdfPreview = allMedia.find(
+            (m) => m.type === 'document' && m.ext.toLowerCase() === 'pdf'
+          );
 
           const openInLightbox = (media: DiscoveredMedia) => {
             if (media.type === 'document') {
@@ -335,31 +338,42 @@ export default function PublicationsPage() {
                 onClick={() => toggle(index)}
                 className="w-full text-left group"
               >
-                <div className="flex justify-between items-start gap-4">
-                  <h2 className="font-serif text-xl leading-snug text-foreground group-hover:text-primary transition-colors">
-                    {pub.title}
-                  </h2>
-                  <div className="shrink-0 pt-1">
-                    {isExpanded ? (
-                      <ChevronUp className="w-4 h-4 text-muted-foreground" />
-                    ) : (
-                      <ChevronDown className="w-4 h-4 text-muted-foreground" />
-                    )}
+                <div className={`flex flex-col gap-4 ${pdfPreview ? 'sm:flex-row sm:items-start' : ''}`}>
+                  {pdfPreview && (
+                    <PdfThumbnail
+                      src={pdfPreview.path}
+                      className="w-full h-40 sm:w-28 sm:h-36 sm:shrink-0 pointer-events-none"
+                    />
+                  )}
+
+                  <div className="min-w-0 flex-1">
+                    <div className="flex justify-between items-start gap-4">
+                      <h2 className="font-serif text-xl leading-snug text-foreground group-hover:text-primary transition-colors">
+                        {pub.title}
+                      </h2>
+                      <div className="shrink-0 pt-1">
+                        {isExpanded ? (
+                          <ChevronUp className="w-4 h-4 text-muted-foreground" />
+                        ) : (
+                          <ChevronDown className="w-4 h-4 text-muted-foreground" />
+                        )}
+                      </div>
+                    </div>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      {pub.authors.join(', ')}
+                    </p>
+                    <div className="flex items-center justify-between mt-2">
+                      <div className="flex items-center gap-3">
+                        <span className="text-xs font-medium uppercase tracking-widest text-muted-foreground/60 border-b border-muted-foreground/30">
+                          {pub.venue.split('—')[0].trim()}
+                        </span>
+                        <span className="text-xs text-muted-foreground/50">{pub.date}</span>
+                      </div>
+                      <span className="text-xs text-muted-foreground/60 border border-border/50 px-2 py-0.5 rounded-full">
+                        {typeLabel(pub.type)}
+                      </span>
+                    </div>
                   </div>
-                </div>
-                <p className="text-sm text-muted-foreground mt-1">
-                  {pub.authors.join(', ')}
-                </p>
-                <div className="flex items-center justify-between mt-2">
-                  <div className="flex items-center gap-3">
-                    <span className="text-xs font-medium uppercase tracking-widest text-muted-foreground/60 border-b border-muted-foreground/30">
-                      {pub.venue.split('—')[0].trim()}
-                    </span>
-                    <span className="text-xs text-muted-foreground/50">{pub.date}</span>
-                  </div>
-                  <span className="text-xs text-muted-foreground/60 border border-border/50 px-2 py-0.5 rounded-full">
-                    {typeLabel(pub.type)}
-                  </span>
                 </div>
               </button>
 
