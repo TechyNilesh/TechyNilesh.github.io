@@ -6,80 +6,111 @@ export interface MediaItem {
   date: string;
   description: string;
   source?: string; // e.g. "NDTV", "KDD 2025"
-  image?: string; // thumbnail/screenshot path in /public/media/
-  video?: string; // YouTube or external video URL
-  link?: string; // article URL or external link
-  file?: string; // PDF path in /public/media/ (poster PDF, slides PDF)
+  mediaFolder?: string; // folder name under /public/media/ — all media auto-discovered
+  links?: { text: string; url: string }[];
   tags?: string[];
 }
 
 export const pageDescription = 'News features, conference poster sessions, and paper presentations from research and industry work.';
 
 const mediaItems: MediaItem[] = [
-  // ── News Coverage ──────────────────────────────────────
   {
-    title: 'Real-Time COVID-19 Detection Through CT-Scan Software',
-    type: 'news',
-    date: '2021',
-    description: 'State-level news coverage featuring the development of a real-time COVID-19 detection system using deep learning on CT-scan images.',
-    source: 'State News',
-    tags: ['COVID-19', 'Deep Learning', 'Healthcare'],
-    // image: '/media/news/covid-ct-scan-news.jpg',
-    // link: 'https://example.com/news-article',
-    // video: 'https://www.youtube.com/watch?v=...',
-  },
-
-  // ── Conference Posters ─────────────────────────────────
-  {
-    title: 'Bayesian Stream Tuner — KDD 2025 Poster',
-    type: 'poster',
+    title: 'Bayesian Stream Tuner — KDD 2025 Oral Presentation',
+    type: 'presentation',
     date: 'August 2025',
-    description: 'Poster presentation at KDD 2025 on dynamic hyperparameter optimization for real-time data streams using Bayesian techniques.',
-    source: 'KDD 2025',
-    tags: ['Bayesian Optimization', 'Data Streams', 'AutoML'],
-    // image: '/media/posters/kdd-2025-poster.jpg',
-    // file: '/media/posters/kdd-2025-poster.pdf',
+    description:
+      'Oral presentation at ACM SIGKDD 2025 (Toronto, Canada) on "Bayesian Stream Tuner: Dynamic Hyperparameter Optimization for Real-Time Data Streams". ' +
+      'The paper introduces a Bayesian optimization framework that continuously adapts hyperparameters on-the-fly without expensive retraining cycles, ' +
+      'maintaining robust performance in non-stationary streaming environments. ' +
+      'Co-authored with Albert Bifet, Bernhard Pfahringer, and Maroua Bahri.',
+    source: 'ACM KDD 2025',
+    tags: ['Machine Learning', 'Bayesian Optimization', 'AutoML', 'Data Streams', 'Hyperparameter Optimization', 'KDD 2025'],
+    mediaFolder: 'kdd-2025',
   },
   {
-    title: 'Auto-Reg — PAKDD 2025 Poster',
-    type: 'poster',
-    date: 'April 2025',
-    description: 'Poster presentation at PAKDD 2025 showcasing a dynamic AutoML framework for streaming regression tasks.',
+    title: 'Auto-Reg — PAKDD 2025 Presentation',
+    type: 'presentation',
+    date: 'May 2025',
+    description:
+      'Presented research paper "Auto-Reg: A Dynamic AutoML Framework for Streaming Regression" at PAKDD 2025 in Sydney, Australia. ' +
+      'The work introduces a novel approach to automated machine learning for streaming data, addressing the critical challenge of regression in dynamic environments where data continuously evolves. ' +
+      'Co-authored with Albert Bifet and Bernhard Pfahringer from the University of Waikato, and Maroua Bahri from Sorbonne University, Paris.',
     source: 'PAKDD 2025',
-    tags: ['AutoML', 'Streaming Regression', 'Concept Drift'],
-    // image: '/media/posters/pakdd-2025-poster.jpg',
-    // file: '/media/posters/pakdd-2025-poster.pdf',
+    tags: ['Machine Learning', 'AutoML', 'Streaming Data', 'Regression', 'Data Science', 'PAKDD 2025'],
+    mediaFolder: 'pakdd-2025',
   },
-
-  // ── Paper Presentations ────────────────────────────────
   {
-    title: 'ASML-REG — ACM SAC 2025 Paper Presentation',
+    title: 'ASML-REG — SAC 2025 Presentation',
     type: 'presentation',
     date: 'March 2025',
-    description: 'Paper presentation at the 40th ACM/SIGAPP Symposium on Applied Computing on automated machine learning for data stream regression.',
+    description:
+      'Presented research paper "ASML-REG: Automated Machine Learning for Data Stream Regression" at The 40th ACM/SIGAPP Symposium on Applied Computing (SAC 2025) in Catania, Sicily, Italy. ' +
+      'Hosted by the University of Catania, the work focuses on automating machine learning for dynamic data stream regression. ' +
+      'Co-authored with Albert Bifet, Bernhard Pfahringer, and Maroua Bahri.',
     source: 'ACM SAC 2025',
-    tags: ['AutoML', 'Data Streams', 'Regression'],
-    // file: '/media/presentations/acm-sac-2025-slides.pdf',
-    // video: 'https://www.youtube.com/watch?v=...',
+    tags: ['Machine Learning', 'Data Streams', 'AutoML', 'Regression', 'Applied Computing', 'SAC 2025'],
+    mediaFolder: 'sac-2025',
   },
   {
-    title: 'ASML — AutoML 2024 Paper Presentation',
-    type: 'presentation',
-    date: 'September 2024',
-    description: 'Presentation at AutoML 2024 on a scalable and efficient AutoML solution for data streams with adaptive learning strategies.',
-    source: 'AutoML 2024',
-    tags: ['AutoML', 'Scalability', 'Data Streams'],
-    // file: '/media/presentations/automl-2024-slides.pdf',
-    // video: 'https://www.youtube.com/watch?v=...',
-  },
-  {
-    title: 'COVIS-Health — ICAIHC 2025 Presentation',
-    type: 'presentation',
+    title: 'AutoSAD — PRICAI 2025 Poster',
+    type: 'poster',
     date: 'February 2025',
-    description: 'Presentation at the International Conference on Ambient Intelligence in Health Care on a deep learning and explainable AI-based COVID-19 decision support system.',
-    source: 'ICAIHC 2025',
-    tags: ['Deep Learning', 'Explainable AI', 'COVID-19'],
-    // file: '/media/presentations/icaihc-2025-slides.pdf',
+    description:
+      'Poster presentation at PRICAI 2025 (Wellington, New Zealand) on AutoSAD: An Adaptive Framework for Automated Streaming Anomaly Detection. ' +
+      'AutoSAD introduces an automated approach to anomaly detection in data streams using multi-armed bandit optimization and evolutionary algorithms, ' +
+      'addressing the challenge of adapting to evolving data patterns in real-time streaming environments. ' +
+      'Co-authored with Albert Bifet, Bernhard Pfahringer, and Maroua Bahri.',
+    source: 'PRICAI 2025',
+    tags: ['Machine Learning', 'Anomaly Detection', 'AutoML', 'Data Streams', 'PRICAI 2025'],
+    mediaFolder: 'pricai-2025',
+  },
+  {
+    title: 'ASML — AutoML Conference 2024 Presentation & Poster',
+    type: 'poster',
+    date: 'September 2024',
+    description:
+      'Paper "ASML: A Scalable and Efficient AutoML Solution for Data Streams" selected in the main track of the AutoML Conference 2024 in Paris, France. ' +
+      'Delivered a short pitch and engaged in a vibrant poster session with insightful discussions around the work. ' +
+      'Co-authored with Albert Bifet, Bernhard Pfahringer, and Maroua Bahri.',
+    source: 'AutoML Conference 2024',
+    tags: ['Machine Learning', 'AutoML', 'Data Streams', 'AutoML 2024'],
+    mediaFolder: 'automl-2024',
+    links: [{ text: 'Paper', url: 'https://lnkd.in/gEeVyp88' }],
+  },
+  {
+    title: 'Started Ph.D. at the University of Waikato',
+    type: 'news',
+    date: 'March 2024',
+    description:
+      'Began Ph.D. journey at the University of Waikato with a full scholarship, supervised by Prof. Albert Bifet (Chief Supervisor) and Prof. Bernhard Pfahringer (Co-Supervisor). ' +
+      'Research focus on AI and machine learning, exploring their applications across various domains. ' +
+      'Coming from a small village and a Hindi medium school, this opportunity represents a dream come true.',
+    source: 'University of Waikato',
+    tags: ['PhD', 'AI', 'Machine Learning', 'Research', 'Scholarship', 'University of Waikato'],
+    mediaFolder: 'phd-waikato',
+  },
+  {
+    title: 'NLP Seminar at Atal Bihari Vajpayee University, Bilaspur',
+    type: 'presentation',
+    date: '2023',
+    description:
+      'Invited seminar on Natural Language Processing at Atal Bihari Vajpayee University, Bilaspur. ' +
+      'Covered topics including Transformers, Text Summarisation, and fine-tuning BERT models on downstream tasks. ' +
+      'Honoured by the Vice Chancellor, HOD, and faculty members. Presented to students from multiple colleges.',
+    source: 'Atal Bihari Vajpayee University',
+    tags: ['NLP', 'Transformers', 'BERT', 'Text Summarisation', 'Machine Learning', 'Seminar'],
+    mediaFolder: 'abv-university-seminar',
+  },
+  {
+    title: 'M.Sc. Computer Science Gold Medal — Governor of Chhattisgarh',
+    type: 'news',
+    date: '2023',
+    description:
+      'Awarded the Gold Medal for M.Sc. Computer Science in Application by the Governor of Chhattisgarh at the convocation ceremony. ' +
+      'Recognised for outstanding academic achievement in the programme.',
+    source: 'Atal Bihari Vajpayee University',
+    tags: ['Gold Medal', 'Computer Science', 'M.Sc.', 'Academic Excellence'],
+    mediaFolder: 'msc-gold-medal-ceremony',
   },
 ];
 

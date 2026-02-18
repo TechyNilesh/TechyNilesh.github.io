@@ -67,7 +67,7 @@ export default function Blog() {
   };
 
   return (
-    <main className="pt-28 pb-16 px-4 sm:px-6 max-w-4xl mx-auto">
+    <main className="pt-28 pb-16 px-4 sm:px-6 max-w-4xl mx-auto w-full min-w-0">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

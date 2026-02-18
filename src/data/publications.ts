@@ -1,3 +1,5 @@
+export type PublicationType = 'conference' | 'journal' | 'book-chapter' | 'patent' | 'book';
+
 export interface Publication {
   title: string;
   authors: string[];
@@ -8,8 +10,8 @@ export interface Publication {
   keywords: string[];
   doi?: string;
   paperLink?: string;
-  pdf?: string; // path relative to /public, e.g. "/papers/my-paper.pdf"
   type: 'conference' | 'journal' | 'book-chapter' | 'patent' | 'book';
+  mediaFolder?: string; // folder name under /public/publications/ — images, PDFs, PPTs auto-discovered
 }
 
 export const sectionDescription = 'Discover relevant content by exploring my research papers in AutoML, data streaming, and machine learning applications.';
@@ -28,6 +30,7 @@ const publications: Publication[] = [
     keywords: ['Hyperparameter Optimization', 'Data Streams', 'Concept Drift', 'Bayesian Optimization', 'Real-Time ML'],
     paperLink: 'https://nileshverma.com/publication/bayesian-stream-tuner/',
     type: 'conference',
+    mediaFolder: '2025-bayesian-stream-tuner',
   },
   {
     title: 'Auto-Reg: A Dynamic AutoML Framework for Streaming Regression',
@@ -40,6 +43,7 @@ const publications: Publication[] = [
     keywords: ['AutoML', 'Streaming Regression', 'Concept Drift Detection', 'Adaptive Ensemble', 'Feature Engineering'],
     paperLink: 'https://nileshverma.com/publication/auto-reg/',
     type: 'conference',
+    mediaFolder: '2025-auto-reg',
   },
   {
     title: 'ASML-REG: Automated Machine Learning for Data Stream Regression',
@@ -52,6 +56,7 @@ const publications: Publication[] = [
     keywords: ['AutoML', 'Data Streams', 'Regression', 'Concept Drift', 'Model Selection'],
     paperLink: 'https://nileshverma.com/publication/asml-reg/',
     type: 'conference',
+    mediaFolder: '2025-asml-reg',
   },
   {
     title: 'COVIS-Health: A Deep Learning and Explainable AI-Based Decision Support System for Identification of COVID-19',
@@ -64,6 +69,7 @@ const publications: Publication[] = [
     keywords: ['Deep Learning', 'Explainable AI', 'COVID-19', 'CT-Scan', 'Decision Support System'],
     paperLink: 'https://nileshverma.com/publication/covis-health/',
     type: 'conference',
+    mediaFolder: '2025-covis-health',
   },
   {
     title: 'ASML: A Scalable and Efficient AutoML Solution for Data Streams',
@@ -76,6 +82,7 @@ const publications: Publication[] = [
     keywords: ['AutoML', 'Data Streams', 'Scalability', 'Concept Drift', 'Real-Time Processing'],
     paperLink: 'https://nileshverma.com/publication/asml-scalable-automl/',
     type: 'conference',
+    mediaFolder: '2024-asml',
   },
   {
     title: 'Design and Development of Machine Learning-Based Depression Identification Decision Support System',
@@ -88,6 +95,7 @@ const publications: Publication[] = [
     keywords: ['Depression Detection', 'Machine Learning', 'NLP', 'Decision Support System', 'Mental Health'],
     paperLink: 'https://nileshverma.com/publication/depression-identification/',
     type: 'book-chapter',
+    mediaFolder: '2024-depression-identification',
   },
   {
     title: 'Integration of Deep Learning Techniques for Sentiment and Emotion Analysis of Social Media Data',
@@ -99,6 +107,7 @@ const publications: Publication[] = [
       'This paper explores the integration of deep learning techniques for comprehensive sentiment and emotion analysis on social media data. The work examines various neural network architectures for text classification, comparing their effectiveness in detecting nuanced emotional states beyond simple positive/negative sentiment.',
     keywords: ['Deep Learning', 'Sentiment Analysis', 'Emotion Analysis', 'Social Media', 'NLP'],
     type: 'journal',
+    mediaFolder: '2023-sentiment-emotion-analysis',
   },
   {
     title: 'COVID-19: Machine Learning Methods Applied for Twitter Sentiment Analysis of Indians Before, During and After Lockdown',
@@ -110,6 +119,7 @@ const publications: Publication[] = [
       'This study applies machine learning methods to analyze Twitter sentiment among Indian users across three distinct phases: before, during, and after the COVID-19 lockdown. The research tracks the evolution of public sentiment through these critical periods, providing insights into how lockdown policies impacted public opinion and emotional responses.',
     keywords: ['COVID-19', 'Sentiment Analysis', 'Twitter', 'Machine Learning', 'Lockdown'],
     type: 'journal',
+    mediaFolder: '2023-covid-twitter-sentiment',
   },
   {
     title: 'Analyzing the Sentiments by Classifying the Tweets Based on COVID-19 Using Machine Learning Classifiers',
@@ -121,6 +131,7 @@ const publications: Publication[] = [
       'This paper analyzes public sentiments by classifying COVID-19 related tweets using various machine learning classifiers. The study compares the performance of multiple classification algorithms on tweet datasets, evaluating their effectiveness in capturing the diverse range of public opinions during the pandemic.',
     keywords: ['COVID-19', 'Tweet Classification', 'Machine Learning', 'Sentiment Analysis'],
     type: 'conference',
+    mediaFolder: '2022-covid-tweet-classification',
   },
   {
     title: 'Lexicon-based Sentiment Analysis Using Twitter Data — A Case of COVID-19 Outbreak in India and Abroad',
@@ -134,6 +145,7 @@ const publications: Publication[] = [
     doi: 'https://doi.org/10.1016/B978-0-12-824536-1.00015-0',
     paperLink: 'https://nileshverma.com/publication/lexicon-based-sentiment-analysis/',
     type: 'book-chapter',
+    mediaFolder: '2021-lexicon-sentiment-analysis',
   },
   {
     title: 'Classification of Pima Indian Diabetes Dataset Using Decision Tree Techniques',
@@ -145,6 +157,7 @@ const publications: Publication[] = [
       'This paper applies decision tree classification techniques to the Pima Indian Diabetes dataset for predicting diabetes onset. The study evaluates various decision tree algorithms and their effectiveness in medical diagnosis, providing a comparative analysis of classification accuracy and interpretability.',
     keywords: ['Decision Tree', 'Diabetes Prediction', 'Classification', 'Machine Learning', 'Healthcare'],
     type: 'journal',
+    mediaFolder: '2020-pima-diabetes-classification',
   },
 ];
 

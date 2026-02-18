@@ -1,49 +1,14 @@
 import { useEffect, useState } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import Navigation from './sections/Navigation';
-import Hero from './sections/Hero';
-import About from './sections/About';
-import Experience from './sections/Experience';
-import Publications from './sections/Publications';
-import Projects from './sections/Projects';
-import Achievements from './sections/Achievements';
-import Certifications from './sections/Certifications';
-import OpenSource from './sections/OpenSource';
-import Skills from './sections/Skills';
-import Education from './sections/Education';
-import Footer from './sections/Footer';
+import Navigation from './layout/Navigation';
+import Footer from './layout/Footer';
+import HomePage from './pages/home/HomePage';
 import Blog from './pages/Blog';
 import PublicationsPage from './pages/PublicationsPage';
 import MediaPage from './pages/MediaPage';
-
-function HomePage() {
-  const { hash } = useLocation();
-
-  useEffect(() => {
-    if (hash) {
-      const el = document.querySelector(hash);
-      if (el) {
-        setTimeout(() => el.scrollIntoView({ behavior: 'smooth' }), 100);
-      }
-    }
-  }, [hash]);
-
-  return (
-    <main>
-      <Hero />
-      <About />
-      <Experience />
-      <Publications />
-      <OpenSource />
-      <Projects />
-      <Skills />
-      <Achievements />
-      <Education />
-      <Certifications />
-    </main>
-  );
-}
+import ProjectsPage from './pages/ProjectsPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -87,14 +52,16 @@ function App() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.4 }}
-          className="min-h-screen bg-background"
+          className="min-h-screen bg-background flex flex-col w-full min-w-0 overflow-x-hidden"
         >
           <Navigation />
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/blog" element={<Blog />} />
+            <Route path="/projects" element={<ProjectsPage />} />
             <Route path="/publications" element={<PublicationsPage />} />
             <Route path="/media" element={<MediaPage />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
           <Footer />
         </motion.div>
