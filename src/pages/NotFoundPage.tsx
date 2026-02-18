@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import SEO from '../components/SEO';
@@ -13,12 +12,7 @@ export default function NotFoundPage() {
         description="The page you're looking for doesn't exist or has been moved."
         noindex
       />
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="space-y-6"
-      >
+      <div className="space-y-6">
         <h1 className="font-serif text-7xl sm:text-9xl text-primary/20">404</h1>
         <h2 className="font-serif text-2xl sm:text-3xl text-foreground">
           Page not found
@@ -33,7 +27,7 @@ export default function NotFoundPage() {
           <ArrowLeft className="w-4 h-4" />
           Back to home
         </button>
-      </motion.div>
+      </div>
     </main>
   );
 }

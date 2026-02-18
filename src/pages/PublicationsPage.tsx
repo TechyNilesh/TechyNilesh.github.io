@@ -1,5 +1,4 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, FileText, ChevronDown, ChevronUp, Play, Presentation, X, ChevronLeft, ChevronRight, BookOpen, LayoutGrid, Mic, BookText, BookMarked, ScrollText, Library } from 'lucide-react';
 import * as pdfjsLib from 'pdfjs-dist';
 import SEO from '../components/SEO';
@@ -227,25 +226,15 @@ export default function PublicationsPage() {
         description="Research papers in AutoML, data streaming, NLP, and machine learning. Published in top-tier venues including KDD and PAKDD."
         path="/publications"
       />
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="text-center sm:text-left"
-      >
+      <div className="text-center sm:text-left">
         <h1 className="font-serif text-3xl sm:text-4xl text-foreground mb-3">Publications</h1>
         <p className="text-muted-foreground mb-10 max-w-2xl">
           {pageDescription}
         </p>
-      </motion.div>
+      </div>
 
       {/* Filter Bar */}
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
-        className="mb-12"
-      >
+      <div className="mb-12">
         <div className="grid grid-cols-2 gap-2 sm:hidden">
           {pubFilters.map((filter) => {
             const isActive = activeFilter === filter.id;
@@ -283,29 +272,21 @@ export default function PublicationsPage() {
                   className={`
                     relative flex items-center gap-2 px-4 py-2 text-sm font-medium transition-all duration-300 rounded-xl
                     ${isActive
-                      ? 'text-primary'
+                      ? 'text-primary bg-background border border-border/40 shadow-sm'
                       : 'text-muted-foreground hover:text-foreground hover:bg-muted/60'
                     }
                   `}
                 >
-                  {isActive && (
-                    <motion.div
-                      layoutId="active-pub-filter-bg"
-                      className="absolute inset-0 bg-background border border-border/40 shadow-sm rounded-xl"
-                      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                    />
-                  )}
-                  <Icon className={`w-4 h-4 relative z-10 ${isActive ? 'text-primary' : 'opacity-60'}`} />
-                  <span className="relative z-10">{filter.label}</span>
+                  <Icon className={`w-4 h-4 ${isActive ? 'text-primary' : 'opacity-60'}`} />
+                  <span>{filter.label}</span>
                 </button>
               );
             })}
           </div>
         </div>
-      </motion.div>
+      </div>
 
       <div className="w-full min-h-[240px]">
-        <AnimatePresence mode="popLayout">
         {filteredPublications.length > 0 ? (
           filteredPublications.map((pub, index) => {
           const isExpanded = expandedIndex === index;
@@ -326,12 +307,8 @@ export default function PublicationsPage() {
           };
 
           return (
-            <motion.div
+            <div
               key={pub.title}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
               className="w-full mb-6"
             >
             <div className="hover:bg-accent/5 -mx-4 px-4 py-5 rounded-xl transition-all duration-300">
@@ -437,77 +414,57 @@ export default function PublicationsPage() {
                     )}
 
               {/* Expanded content — abstract & keywords only */}
-              <AnimatePresence>
-                {isExpanded && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="overflow-hidden"
-                  >
-                    <div className="pt-5 space-y-4">
-                      {/* Abstract */}
+              {isExpanded && (
+                <div className="overflow-hidden">
+                  <div className="pt-5 space-y-4">
+                    {/* Abstract */}
+                    <div>
+                      <h3 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-2">
+                        Abstract
+                      </h3>
+                      <p className="text-sm text-muted-foreground/80 leading-relaxed">
+                        {pub.abstract}
+                      </p>
+                    </div>
+
+                    {/* Keywords */}
+                    {pub.keywords.length > 0 && (
                       <div>
                         <h3 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-2">
-                          Abstract
+                          Keywords
                         </h3>
-                        <p className="text-sm text-muted-foreground/80 leading-relaxed">
-                          {pub.abstract}
-                        </p>
-                      </div>
-
-                      {/* Keywords */}
-                      {pub.keywords.length > 0 && (
-                        <div>
-                          <h3 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-2">
-                            Keywords
-                          </h3>
-                          <div className="flex flex-wrap gap-2">
-                            {pub.keywords.map((kw) => (
-                              <span
-                                key={kw}
-                                className="text-xs text-muted-foreground/60 border border-border/50 px-2 py-0.5 rounded-full"
-                              >
-                                {kw}
-                              </span>
-                            ))}
-                          </div>
+                        <div className="flex flex-wrap gap-2">
+                          {pub.keywords.map((kw) => (
+                            <span
+                              key={kw}
+                              className="text-xs text-muted-foreground/60 border border-border/50 px-2 py-0.5 rounded-full"
+                            >
+                              {kw}
+                            </span>
+                          ))}
                         </div>
-                      )}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
             </div>
-            </motion.div>
+            </div>
           );
           })
         ) : (
-          <motion.div
-            key="no-publications"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="w-full"
-          >
+          <div className="w-full">
             <div className="hover:bg-accent/5 -mx-4 px-4 py-20 rounded-xl transition-all duration-300 text-center">
               <p className="text-muted-foreground italic text-lg">
                 No publications found for this category.
               </p>
             </div>
-          </motion.div>
+          </div>
         )}
-        </AnimatePresence>
       </div>
 
       {/* Google Scholar link */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.5 }}
-        className="mt-16 text-center"
-      >
+      <div className="mt-16 text-center">
         <a
           href="https://scholar.google.com/citations?user=ymceHxcAAAAJ&hl=en"
           target="_blank"
@@ -517,79 +474,69 @@ export default function PublicationsPage() {
           View full profile on Google Scholar
           <ExternalLink className="w-3 h-3" />
         </a>
-      </motion.div>
+      </div>
 
       {/* Lightbox / Modal */}
-      <AnimatePresence>
-        {selectedMedia && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-background/95 backdrop-blur-xl p-4 sm:p-10"
-            onClick={() => setSelectedMedia(null)}
+      {selectedMedia && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-background/95 backdrop-blur-xl p-4 sm:p-10"
+          onClick={() => setSelectedMedia(null)}
+        >
+          <button
+            className="absolute top-6 right-6 p-2 rounded-full bg-muted/50 hover:bg-muted text-foreground transition-colors z-[110]"
+            onClick={(e) => {
+              e.stopPropagation();
+              setSelectedMedia(null);
+            }}
           >
-            <motion.button
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="absolute top-6 right-6 p-2 rounded-full bg-muted/50 hover:bg-muted text-foreground transition-colors z-[110]"
-              onClick={(e) => {
-                e.stopPropagation();
-                setSelectedMedia(null);
-              }}
-            >
-              <X className="w-6 h-6" />
-            </motion.button>
+            <X className="w-6 h-6" />
+          </button>
 
-            {selectedMedia.gallery.length > 1 && (
-              <>
-                <button
-                  className="absolute left-4 sm:left-10 p-3 rounded-full bg-muted/30 hover:bg-muted/50 text-foreground transition-colors z-[110]"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    navigateGallery('prev');
-                  }}
-                >
-                  <ChevronLeft className="w-8 h-8" />
-                </button>
-                <button
-                  className="absolute right-4 sm:right-10 p-3 rounded-full bg-muted/30 hover:bg-muted/50 text-foreground transition-colors z-[110]"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    navigateGallery('next');
-                  }}
-                >
-                  <ChevronRight className="w-8 h-8" />
-                </button>
-              </>
+          {selectedMedia.gallery.length > 1 && (
+            <>
+              <button
+                className="absolute left-4 sm:left-10 p-3 rounded-full bg-muted/30 hover:bg-muted/50 text-foreground transition-colors z-[110]"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigateGallery('prev');
+                }}
+              >
+                <ChevronLeft className="w-8 h-8" />
+              </button>
+              <button
+                className="absolute right-4 sm:right-10 p-3 rounded-full bg-muted/30 hover:bg-muted/50 text-foreground transition-colors z-[110]"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigateGallery('next');
+                }}
+              >
+                <ChevronRight className="w-8 h-8" />
+              </button>
+            </>
+          )}
+
+          <div
+            className="relative max-w-6xl w-full h-full flex items-center justify-center p-4"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {selectedMedia.type === 'image' ? (
+              <img
+                src={selectedMedia.url}
+                alt="Enlarged view"
+                className="max-w-full max-h-full object-contain rounded-lg shadow-2xl shadow-black/50"
+              />
+            ) : (
+              <video
+                key={selectedMedia.url}
+                src={selectedMedia.url}
+                controls
+                autoPlay
+                className="max-w-full max-h-[80vh] rounded-2xl shadow-2xl bg-black"
+              />
             )}
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="relative max-w-6xl w-full h-full flex items-center justify-center p-4"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {selectedMedia.type === 'image' ? (
-                <img
-                  src={selectedMedia.url}
-                  alt="Enlarged view"
-                  className="max-w-full max-h-full object-contain rounded-lg shadow-2xl shadow-black/50"
-                />
-              ) : (
-                <video
-                  key={selectedMedia.url}
-                  src={selectedMedia.url}
-                  controls
-                  autoPlay
-                  className="max-w-full max-h-[80vh] rounded-2xl shadow-2xl bg-black"
-                />
-              )}
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </div>
+        </div>
+      )}
     </main>
   );
 }

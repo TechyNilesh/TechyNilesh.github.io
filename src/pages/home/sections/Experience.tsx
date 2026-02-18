@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import SectionWrapper from '../../../components/SectionWrapper';
 import experiences, { sectionDescription } from '../../../data/experience';
 
@@ -10,13 +9,9 @@ export default function Experience() {
       </p>
 
       <div className="relative space-y-12 pl-8 before:absolute before:inset-y-0 before:left-[3.5px] before:w-[2px] before:bg-gradient-to-b before:from-primary/40 before:via-border/40 before:to-transparent">
-        {experiences.map((exp, index) => (
-          <motion.div
+        {experiences.map((exp) => (
+          <div
             key={exp.company + exp.period}
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: index * 0.1 }}
             className="relative group"
           >
             {/* Dot */}
@@ -45,7 +40,7 @@ export default function Experience() {
                 {exp.description}
               </p>
             </div>
-          </motion.div>
+          </div>
         ))}
       </div>
     </SectionWrapper>

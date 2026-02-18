@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Sun, Moon } from 'lucide-react';
 import { useTheme } from 'next-themes';
 
@@ -48,10 +47,7 @@ export default function Navigation() {
 
   return (
     <>
-      <motion.header
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, delay: 0.5 }}
+      <header
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${isScrolled
           ? 'bg-background/90 backdrop-blur-md border-b border-border/50'
           : 'bg-transparent'
@@ -60,10 +56,7 @@ export default function Navigation() {
         <nav className="max-w-4xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between h-14">
             {/* Logo */}
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
+            <div>
               <Link
                 to="/"
                 onClick={() => {
@@ -75,7 +68,7 @@ export default function Navigation() {
               >
                 NV
               </Link>
-            </motion.div>
+            </div>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-6">
@@ -127,52 +120,38 @@ export default function Navigation() {
             </div>
           </div>
         </nav>
-      </motion.header>
+      </header>
 
       {/* Mobile Menu */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-x-0 top-14 z-30 bg-background/95 backdrop-blur-md border-b border-border/50 md:hidden"
-          >
-            <div className="px-4 py-4 space-y-1">
-              {navItems.map((item, index) =>
-                item.route ? (
-                  <motion.div
-                    key={item.name}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.03 }}
-                  >
-                    <Link
-                      to={item.route}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className="block w-full text-center px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 rounded-md transition-colors"
-                    >
-                      {item.name}
-                    </Link>
-                  </motion.div>
-                ) : (
-                  <motion.button
-                    key={item.name}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.03 }}
-                    onClick={() => scrollToSection(item.href)}
+      {isMobileMenuOpen && (
+        <div
+          className="fixed inset-x-0 top-14 z-30 bg-background/95 backdrop-blur-md border-b border-border/50 md:hidden"
+        >
+          <div className="px-4 py-4 space-y-1">
+            {navItems.map((item) =>
+              item.route ? (
+                <div key={item.name}>
+                  <Link
+                    to={item.route}
+                    onClick={() => setIsMobileMenuOpen(false)}
                     className="block w-full text-center px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 rounded-md transition-colors"
                   >
                     {item.name}
-                  </motion.button>
-                )
-              )}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+                  </Link>
+                </div>
+              ) : (
+                <button
+                  key={item.name}
+                  onClick={() => scrollToSection(item.href)}
+                  className="block w-full text-center px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 rounded-md transition-colors"
+                >
+                  {item.name}
+                </button>
+              )
+            )}
+          </div>
+        </div>
+      )}
     </>
   );
 }

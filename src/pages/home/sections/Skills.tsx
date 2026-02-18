@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import SectionWrapper from '../../../components/SectionWrapper';
 import { sectionCardBase } from '../../../components/SectionCard';
 import skillCategories, { sectionDescription } from '../../../data/skills';
@@ -11,18 +10,14 @@ export default function Skills() {
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 text-sm">
-        {skillCategories.map((category, index) => (
-          <motion.div
+        {skillCategories.map((category) => (
+          <div
             key={category.name}
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: index * 0.05 }}
             className={sectionCardBase}
           >
             <div className="flex items-center gap-3 mb-4">
               <div className="h-1 w-6 rounded-full bg-primary/40 group-hover:w-10 group-hover:bg-primary transition-all duration-300" />
-              <h3 className="font-serif text-lg font-medium text-foreground tracking-wide">
+              <h3 className="font-serif text-lg font-semibold text-foreground tracking-wide">
                 {category.name}
               </h3>
             </div>
@@ -37,7 +32,7 @@ export default function Skills() {
                 </span>
               ))}
             </div>
-          </motion.div>
+          </div>
         ))}
       </div>
     </SectionWrapper>

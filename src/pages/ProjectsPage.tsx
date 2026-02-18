@@ -1,5 +1,4 @@
 import { useState, useEffect, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, Github, Star, LayoutGrid, Package, Code, Play, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import SEO from '../components/SEO';
 import projects, { pageDescription } from '../data/projects';
@@ -123,25 +122,15 @@ export default function ProjectsPage() {
         description="AI-powered products and open-source tools spanning voice platforms, research tools, and accessible machine learning."
         path="/projects"
       />
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="text-center sm:text-left"
-      >
+      <div className="text-center sm:text-left">
         <h1 className="font-serif text-3xl sm:text-4xl text-foreground mb-3">Projects</h1>
         <p className="text-muted-foreground mb-10 max-w-2xl">
           {pageDescription}
         </p>
-      </motion.div>
+      </div>
 
       {/* Filter Bar */}
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
-        className="mb-12 flex justify-start overflow-x-auto no-scrollbar pb-1"
-      >
+      <div className="mb-12 flex justify-start overflow-x-auto no-scrollbar pb-1">
         <div className="inline-flex items-center p-1.5 bg-muted/40 backdrop-blur-md border border-border/50 rounded-2xl shadow-sm shrink-0">
           {filters.map((filter) => {
             const isActive = activeFilter === filter.id;
@@ -154,206 +143,177 @@ export default function ProjectsPage() {
                 className={`
                   relative flex items-center gap-2 px-4 py-2 text-sm font-medium transition-all duration-300 rounded-xl
                   ${isActive
-                    ? 'text-primary'
+                    ? 'text-primary bg-background border border-border/40 shadow-sm'
                     : 'text-muted-foreground hover:text-foreground hover:bg-muted/60'
                   }
                 `}
               >
-                {isActive && (
-                  <motion.div
-                    layoutId="active-project-filter-bg"
-                    className="absolute inset-0 bg-background border border-border/40 shadow-sm rounded-xl"
-                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                  />
-                )}
-                <Icon className={`w-4 h-4 relative z-10 ${isActive ? 'text-primary' : 'opacity-60'}`} />
-                <span className="relative z-10">{filter.label}</span>
+                <Icon className={`w-4 h-4 ${isActive ? 'text-primary' : 'opacity-60'}`} />
+                <span>{filter.label}</span>
               </button>
             );
           })}
         </div>
-      </motion.div>
+      </div>
 
       {/* Project List */}
       <div className="space-y-4 w-full min-h-[240px]">
-        <AnimatePresence mode="popLayout">
-          {filteredItems.length > 0 ? (
-            filteredItems.map((project) => {
-              const allMedia = project.mediaFolder ? getProjectMedia(project.mediaFolder) : [];
-              const hasMedia = allMedia.length > 0;
+        {filteredItems.length > 0 ? (
+          filteredItems.map((project) => {
+            const allMedia = project.mediaFolder ? getProjectMedia(project.mediaFolder) : [];
+            const hasMedia = allMedia.length > 0;
 
-              return (
-                <motion.div
-                  key={project.title}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                  className="w-full"
-                >
-                  <div className="group hover:bg-accent/5 -mx-4 px-4 py-5 rounded-xl transition-all duration-300">
-                    <div className="flex justify-between items-start gap-4">
-                      <h3 className="font-serif text-xl leading-snug text-foreground group-hover:text-primary transition-colors">
-                        {project.title}
-                      </h3>
-                      <div className="flex items-center gap-2 shrink-0">
-                        {project.github && starsMap.get(project.github) && (
-                          <div className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary/10 text-primary text-xs font-bold border border-primary/20">
-                            <Star className="w-3 h-3 fill-primary" />
-                            {starsMap.get(project.github)}
-                          </div>
-                        )}
-                        {project.github && (
-                          <a
-                            href={project.github}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-muted-foreground/40 hover:text-primary transition-colors"
-                          >
-                            <Github className="w-4 h-4" />
-                          </a>
-                        )}
-                        {project.link && !project.github && (
-                          <a
-                            href={project.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-muted-foreground/40 hover:text-primary transition-colors"
-                          >
-                            <ExternalLink className="w-4 h-4" />
-                          </a>
-                        )}
-                      </div>
-                    </div>
-
-                    {project.subtitle && (
-                      <p className="text-xs font-semibold uppercase tracking-widest text-primary/70 mt-1">
-                        {project.subtitle}
-                      </p>
-                    )}
-
-                    <p className="text-sm text-muted-foreground/80 leading-relaxed mt-2">
-                      {project.description}
-                    </p>
-
-                    {/* Media thumbnails */}
-                    {hasMedia && allMedia.length === 1 && (
-                      <div className="mt-4">
-                        <MediaThumbnail
-                          media={allMedia[0]}
-                          title={project.title}
-                          className="w-full sm:w-64 h-48"
-                          onClick={() => openInLightbox(allMedia[0], allMedia)}
-                        />
-                      </div>
-                    )}
-
-                    {hasMedia && allMedia.length > 1 && (
-                      <div className="flex gap-3 overflow-x-auto pb-1 scrollbar-thin scrollbar-thumb-border scrollbar-track-transparent mt-4">
-                        {allMedia.map((media, i) => (
-                          <MediaThumbnail
-                            key={i}
-                            media={media}
-                            title={`${project.title} ${i + 1}`}
-                            className="shrink-0 w-52 h-40"
-                            onClick={() => openInLightbox(media, allMedia)}
-                          />
-                        ))}
-                      </div>
-                    )}
-
-                    <div className="flex flex-wrap gap-2 mt-3">
-                      {project.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="text-xs text-muted-foreground/60 border border-border/50 px-2 py-0.5 rounded-full"
+            return (
+              <div
+                key={project.title}
+                className="w-full"
+              >
+                <div className="group hover:bg-accent/5 -mx-4 px-4 py-5 rounded-xl transition-all duration-300">
+                  <div className="flex justify-between items-start gap-4">
+                    <h3 className="font-serif text-xl leading-snug text-foreground group-hover:text-primary transition-colors">
+                      {project.title}
+                    </h3>
+                    <div className="flex items-center gap-2 shrink-0">
+                      {project.github && starsMap.get(project.github) && (
+                        <div className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary/10 text-primary text-xs font-bold border border-primary/20">
+                          <Star className="w-3 h-3 fill-primary" />
+                          {starsMap.get(project.github)}
+                        </div>
+                      )}
+                      {project.github && (
+                        <a
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-muted-foreground/40 hover:text-primary transition-colors"
                         >
-                          {tag}
-                        </span>
-                      ))}
+                          <Github className="w-4 h-4" />
+                        </a>
+                      )}
+                      {project.link && !project.github && (
+                        <a
+                          href={project.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-muted-foreground/40 hover:text-primary transition-colors"
+                        >
+                          <ExternalLink className="w-4 h-4" />
+                        </a>
+                      )}
                     </div>
                   </div>
-                </motion.div>
-              );
-            })
-          ) : (
-            <motion.div
-              key="no-projects"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="w-full"
-            >
-              <div className="hover:bg-accent/5 -mx-4 px-4 py-20 rounded-xl transition-all duration-300 text-center">
-                <p className="text-muted-foreground italic text-lg">No items found for this category.</p>
+
+                  {project.subtitle && (
+                    <p className="text-xs font-semibold uppercase tracking-widest text-primary/70 mt-1">
+                      {project.subtitle}
+                    </p>
+                  )}
+
+                  <p className="text-sm text-muted-foreground/80 leading-relaxed mt-2">
+                    {project.description}
+                  </p>
+
+                  {/* Media thumbnails */}
+                  {hasMedia && allMedia.length === 1 && (
+                    <div className="mt-4">
+                      <MediaThumbnail
+                        media={allMedia[0]}
+                        title={project.title}
+                        className="w-full sm:w-64 h-48"
+                        onClick={() => openInLightbox(allMedia[0], allMedia)}
+                      />
+                    </div>
+                  )}
+
+                  {hasMedia && allMedia.length > 1 && (
+                    <div className="flex gap-3 overflow-x-auto pb-1 scrollbar-thin scrollbar-thumb-border scrollbar-track-transparent mt-4">
+                      {allMedia.map((media, i) => (
+                        <MediaThumbnail
+                          key={i}
+                          media={media}
+                          title={`${project.title} ${i + 1}`}
+                          className="shrink-0 w-52 h-40"
+                          onClick={() => openInLightbox(media, allMedia)}
+                        />
+                      ))}
+                    </div>
+                  )}
+
+                  <div className="flex flex-wrap gap-2 mt-3">
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="text-xs text-muted-foreground/60 border border-border/50 px-2 py-0.5 rounded-full"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+            );
+          })
+        ) : (
+          <div className="w-full">
+            <div className="hover:bg-accent/5 -mx-4 px-4 py-20 rounded-xl transition-all duration-300 text-center">
+              <p className="text-muted-foreground italic text-lg">No items found for this category.</p>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Lightbox */}
-      <AnimatePresence>
-        {selectedMedia && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-background/95 backdrop-blur-xl p-4 sm:p-10"
-            onClick={() => setSelectedMedia(null)}
+      {selectedMedia && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-background/95 backdrop-blur-xl p-4 sm:p-10"
+          onClick={() => setSelectedMedia(null)}
+        >
+          <button
+            className="absolute top-6 right-6 p-2 rounded-full bg-muted/50 hover:bg-muted text-foreground transition-colors z-[110]"
+            onClick={(e) => { e.stopPropagation(); setSelectedMedia(null); }}
           >
-            <motion.button
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="absolute top-6 right-6 p-2 rounded-full bg-muted/50 hover:bg-muted text-foreground transition-colors z-[110]"
-              onClick={(e) => { e.stopPropagation(); setSelectedMedia(null); }}
-            >
-              <X className="w-6 h-6" />
-            </motion.button>
+            <X className="w-6 h-6" />
+          </button>
 
-            {selectedMedia.gallery.length > 1 && (
-              <>
-                <button
-                  className="absolute left-4 sm:left-10 p-3 rounded-full bg-muted/30 hover:bg-muted/50 text-foreground transition-colors z-[110]"
-                  onClick={(e) => { e.stopPropagation(); navigateGallery('prev'); }}
-                >
-                  <ChevronLeft className="w-8 h-8" />
-                </button>
-                <button
-                  className="absolute right-4 sm:right-10 p-3 rounded-full bg-muted/30 hover:bg-muted/50 text-foreground transition-colors z-[110]"
-                  onClick={(e) => { e.stopPropagation(); navigateGallery('next'); }}
-                >
-                  <ChevronRight className="w-8 h-8" />
-                </button>
-              </>
+          {selectedMedia.gallery.length > 1 && (
+            <>
+              <button
+                className="absolute left-4 sm:left-10 p-3 rounded-full bg-muted/30 hover:bg-muted/50 text-foreground transition-colors z-[110]"
+                onClick={(e) => { e.stopPropagation(); navigateGallery('prev'); }}
+              >
+                <ChevronLeft className="w-8 h-8" />
+              </button>
+              <button
+                className="absolute right-4 sm:right-10 p-3 rounded-full bg-muted/30 hover:bg-muted/50 text-foreground transition-colors z-[110]"
+                onClick={(e) => { e.stopPropagation(); navigateGallery('next'); }}
+              >
+                <ChevronRight className="w-8 h-8" />
+              </button>
+            </>
+          )}
+
+          <div
+            className="relative max-w-6xl w-full h-full flex items-center justify-center p-4"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {selectedMedia.type === 'image' ? (
+              <img
+                src={selectedMedia.url}
+                alt="Enlarged view"
+                className="max-w-full max-h-full object-contain rounded-lg shadow-2xl shadow-black/50"
+              />
+            ) : (
+              <video
+                key={selectedMedia.url}
+                src={selectedMedia.url}
+                controls
+                autoPlay
+                className="max-w-full max-h-[80vh] rounded-2xl shadow-2xl bg-black"
+              />
             )}
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="relative max-w-6xl w-full h-full flex items-center justify-center p-4"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {selectedMedia.type === 'image' ? (
-                <img
-                  src={selectedMedia.url}
-                  alt="Enlarged view"
-                  className="max-w-full max-h-full object-contain rounded-lg shadow-2xl shadow-black/50"
-                />
-              ) : (
-                <video
-                  key={selectedMedia.url}
-                  src={selectedMedia.url}
-                  controls
-                  autoPlay
-                  className="max-w-full max-h-[80vh] rounded-2xl shadow-2xl bg-black"
-                />
-              )}
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </div>
+        </div>
+      )}
     </main>
   );
 }

@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import SectionWrapper from '../../../components/SectionWrapper';
 import education, { sectionDescription } from '../../../data/education';
 
@@ -10,13 +9,9 @@ export default function Education() {
       </p>
 
       <div className="relative space-y-8 pl-8 before:absolute before:inset-y-0 before:left-[3.5px] before:w-[2px] before:bg-gradient-to-b before:from-primary/40 before:via-border/40 before:to-transparent">
-        {education.map((edu, index) => (
-          <motion.div
+        {education.map((edu) => (
+          <div
             key={edu.degree}
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: index * 0.05 }}
             className="relative group"
           >
             {/* Dot */}
@@ -36,7 +31,7 @@ export default function Education() {
             <p className="text-sm text-muted-foreground/70 font-light mt-1">
               {edu.detail}
             </p>
-          </motion.div>
+          </div>
         ))}
       </div>
     </SectionWrapper>

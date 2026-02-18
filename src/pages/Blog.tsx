@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
 import { ExternalLink } from 'lucide-react';
 import SEO from '../components/SEO';
 
@@ -74,16 +73,12 @@ export default function Blog() {
         description="Thoughts on machine learning, AI, and software engineering by Nilesh Verma, published on Medium."
         path="/blog"
       />
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-      >
+      <div>
         <h1 className="font-serif text-3xl sm:text-4xl text-foreground mb-3">Blog</h1>
         <p className="text-muted-foreground mb-12">
           Thoughts on machine learning, AI, and software engineering — published on Medium.
         </p>
-      </motion.div>
+      </div>
 
       {isLoading && (
         <div className="space-y-8">
@@ -101,11 +96,7 @@ export default function Blog() {
       )}
 
       {error && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="text-center py-16"
-        >
+        <div className="text-center py-16">
           <p className="text-muted-foreground mb-4">Unable to load blog posts.</p>
           <a
             href="https://medium.com/@techynilesh"
@@ -116,21 +107,16 @@ export default function Blog() {
             Visit Medium directly
             <ExternalLink className="w-3 h-3" />
           </a>
-        </motion.div>
+        </div>
       )}
 
       {!isLoading && !error && (
         <>
           <div className="space-y-8">
-            {posts.map((post, index) => {
+            {posts.map((post) => {
               const cover = getCoverImage(post);
               return (
-                <motion.div
-                  key={post.link}
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.05 }}
-                >
+                <div key={post.link}>
                   <a
                     href={post.link}
                     target="_blank"
@@ -178,17 +164,12 @@ export default function Blog() {
                       </div>
                     </div>
                   </a>
-                </motion.div>
+                </div>
               );
             })}
           </div>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-            className="mt-16 text-center"
-          >
+          <div className="mt-16 text-center">
             <p className="text-sm text-muted-foreground mb-3">
               Showing the 10 most recent posts.
             </p>
@@ -201,7 +182,7 @@ export default function Blog() {
               See all posts on Medium
               <ExternalLink className="w-3 h-3" />
             </a>
-          </motion.div>
+          </div>
         </>
       )}
     </main>

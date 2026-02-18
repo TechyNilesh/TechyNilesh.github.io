@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import { Linkedin, Github, Mail, FileText, MapPin, GraduationCap } from 'lucide-react';
 
 const MediumIcon = ({ className }: { className?: string }) => (
@@ -31,12 +30,7 @@ export default function Hero() {
       </div>
 
       {/* Profile Image */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        className="relative mb-8 z-10"
-      >
+      <div className="relative mb-8 z-10">
         <div className="absolute inset-0 rounded-full bg-primary/20 blur-2xl scale-110" />
         <div className="profile-image w-32 h-32 sm:w-40 sm:h-40 md:w-44 md:h-44 relative z-10 group transition-transform duration-500 hover:scale-[1.02]">
           <img
@@ -47,27 +41,17 @@ export default function Hero() {
             className="w-full h-full object-cover"
           />
         </div>
-      </motion.div>
+      </div>
 
       {/* Name & Title Container */}
       <div className="text-center space-y-6 mb-10 z-10 max-w-4xl mx-auto">
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-foreground tracking-tight leading-tight"
-        >
+        <h1 className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-foreground tracking-tight leading-tight">
           Nilesh Verma
-        </motion.h1>
+        </h1>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-col items-center gap-4"
-        >
+        <div className="flex flex-col items-center gap-4">
           <p className="font-sans text-xs sm:text-sm md:text-base font-medium text-primary tracking-[0.2em] uppercase py-2 border-y border-border/50">
-            Research Scholar &nbsp;·&nbsp; AI Engineer
+            Research Scholar &nbsp;&middot;&nbsp; AI Engineer
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground/80 mt-2">
@@ -86,41 +70,27 @@ export default function Hero() {
               <span>Hamilton, New Zealand</span>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
 
       {/* Social Links */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-        className="flex items-center gap-4 sm:gap-6 z-10"
-      >
-        {socialLinks.map((link, index) => (
-          <motion.a
+      <div className="flex items-center gap-4 sm:gap-6 z-10">
+        {socialLinks.map((link) => (
+          <a
             key={link.label}
             href={link.href}
             target="_blank"
             rel="noopener noreferrer"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.5 + index * 0.05 }}
-            whileHover={{ y: -4, scale: 1.1 }}
             className="social-icon w-10 h-10 sm:w-12 sm:h-12 text-muted-foreground hover:text-primary hover:border-primary/50 bg-background/50 backdrop-blur-sm"
             aria-label={link.label}
           >
             <link.icon className="w-4 h-4 sm:w-5 sm:h-5" />
-          </motion.a>
+          </a>
         ))}
-      </motion.div>
+      </div>
 
       {/* Scroll Indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1, duration: 1 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-muted-foreground/50 animate-bounce"
-      >
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-muted-foreground/50 animate-bounce">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -134,7 +104,7 @@ export default function Hero() {
         >
           <path d="M12 5v14M19 12l-7 7-7-7" />
         </svg>
-      </motion.div>
+      </div>
     </section>
   );
 }
