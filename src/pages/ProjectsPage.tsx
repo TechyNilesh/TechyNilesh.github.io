@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, Github, Star, LayoutGrid, Package, Code, Play, X, ChevronLeft, ChevronRight } from 'lucide-react';
+import SEO from '../components/SEO';
 import projects, { pageDescription } from '../data/projects';
 import type { ProjectType } from '../data/projects';
 import { getProjectMedia } from '../utils/projectDiscovery';
@@ -117,6 +118,11 @@ export default function ProjectsPage() {
 
   return (
     <main className="pt-28 pb-16 px-4 sm:px-6 max-w-4xl mx-auto w-full min-w-0">
+      <SEO
+        title="Projects"
+        description="AI-powered products and open-source tools spanning voice platforms, research tools, and accessible machine learning."
+        path="/projects"
+      />
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

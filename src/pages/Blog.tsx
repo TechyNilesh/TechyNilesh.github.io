@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ExternalLink } from 'lucide-react';
+import SEO from '../components/SEO';
 
 interface BlogPost {
   title: string;
@@ -68,6 +69,11 @@ export default function Blog() {
 
   return (
     <main className="pt-28 pb-16 px-4 sm:px-6 max-w-4xl mx-auto w-full min-w-0">
+      <SEO
+        title="Blog"
+        description="Thoughts on machine learning, AI, and software engineering by Nilesh Verma, published on Medium."
+        path="/blog"
+      />
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

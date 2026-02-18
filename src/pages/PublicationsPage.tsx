@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, FileText, ChevronDown, ChevronUp, Play, Presentation, X, ChevronLeft, ChevronRight, BookOpen, LayoutGrid, Mic, BookText, BookMarked, ScrollText, Library } from 'lucide-react';
 import * as pdfjsLib from 'pdfjs-dist';
+import SEO from '../components/SEO';
 import publications, { pageDescription } from '../data/publications';
 import type { PublicationType } from '../data/publications';
 import { getPublicationMedia, getBibFile } from '../utils/publicationDiscovery';
@@ -221,6 +222,11 @@ export default function PublicationsPage() {
 
   return (
     <main className="pt-28 pb-16 px-4 sm:px-6 max-w-4xl mx-auto w-full min-w-0">
+      <SEO
+        title="Publications"
+        description="Research papers in AutoML, data streaming, NLP, and machine learning. Published in top-tier venues including KDD and PAKDD."
+        path="/publications"
+      />
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

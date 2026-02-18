@@ -151,7 +151,7 @@ export default function Navigation() {
                     <Link
                       to={item.route}
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className="block w-full text-left px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 rounded-md transition-colors"
+                      className="block w-full text-center px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 rounded-md transition-colors"
                     >
                       {item.name}
                     </Link>
@@ -163,7 +163,7 @@ export default function Navigation() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.03 }}
                     onClick={() => scrollToSection(item.href)}
-                    className="block w-full text-left px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 rounded-md transition-colors"
+                    className="block w-full text-center px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 rounded-md transition-colors"
                   >
                     {item.name}
                   </motion.button>

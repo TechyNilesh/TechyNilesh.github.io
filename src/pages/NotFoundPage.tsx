@@ -1,12 +1,18 @@
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
+import SEO from '../components/SEO';
 
 export default function NotFoundPage() {
   const navigate = useNavigate();
 
   return (
     <main className="pt-28 pb-16 px-4 sm:px-6 max-w-4xl mx-auto w-full min-w-0 flex-1 flex flex-col items-center justify-center text-center">
+      <SEO
+        title="Page Not Found"
+        description="The page you're looking for doesn't exist or has been moved."
+        noindex
+      />
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, FileText, Play, Image as ImageIcon, Newspaper, Presentation, LayoutGrid, X, ChevronLeft, ChevronRight } from 'lucide-react';
+import SEO from '../components/SEO';
 import mediaItems, { pageDescription } from '../data/media';
 import type { MediaItem, MediaType } from '../data/media';
 import { getMediaForFolder } from '../utils/mediaDiscovery';
@@ -256,6 +257,11 @@ export default function MediaPage() {
 
   return (
     <main className="pt-28 pb-16 px-4 sm:px-6 max-w-4xl mx-auto min-h-screen w-full min-w-0">
+      <SEO
+        title="Media & Talks"
+        description="News features, conference poster sessions, and paper presentations from research and industry work."
+        path="/media"
+      />
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
