@@ -99,7 +99,7 @@ const publications: Publication[] = [
   },
   {
     title: 'Integration of Deep Learning Techniques for Sentiment and Emotion Analysis of Social Media Data',
-    authors: ['Nilesh Verma'],
+    authors: ['H.S. Hota', 'D.K. Sharma', 'Nilesh Verma'],
     venue: 'International Journal of Intelligent Systems Technologies and Applications',
     year: 2023,
     date: '2023',
@@ -111,8 +111,8 @@ const publications: Publication[] = [
   },
   {
     title: 'COVID-19: Machine Learning Methods Applied for Twitter Sentiment Analysis of Indians Before, During and After Lockdown',
-    authors: ['Nilesh Verma'],
-    venue: 'International Journal of Computing Science and Mathematics',
+    authors: ['H.S. Hota', 'D.K. Sharma', 'Nilesh Verma'],
+    venue: 'International Journal of Computing Science and Mathematics 17 (1), 95-105',
     year: 2023,
     date: '2023',
     abstract:
@@ -122,8 +122,21 @@ const publications: Publication[] = [
     mediaFolder: '2023-covid-twitter-sentiment',
   },
   {
-    title: 'Analyzing the Sentiments by Classifying the Tweets Based on COVID-19 Using Machine Learning Classifiers',
+    title: 'Python Adventures: A Beginner\'s Guide for Young Coders',
     authors: ['Nilesh Verma'],
+    venue: 'Google Books',
+    year: 2023,
+    date: '2023',
+    abstract:
+      'A beginner-friendly book designed to introduce young learners to the world of programming through Python. The book covers fundamental programming concepts with engaging examples and hands-on exercises, making coding accessible and fun for young coders.',
+    keywords: ['Python', 'Programming', 'Education', 'Beginner', 'Coding'],
+    paperLink: 'https://books.google.co.in/books?id=VJCnEAAAQBAJ',
+    type: 'book',
+    mediaFolder: '2023-python-adventures',
+  },
+  {
+    title: 'Analyzing the Sentiments by Classifying the Tweets Based on COVID-19 Using Machine Learning Classifiers',
+    authors: ['D. Dangi', 'D.K. Dixit', 'A. Bhagat', 'R. Nair', 'Nilesh Verma'],
     venue: '2021 IEEE International Conference on Technology, Research, and Innovation for Betterment of Society (TRIBES)',
     year: 2022,
     date: '2022',
@@ -132,6 +145,18 @@ const publications: Publication[] = [
     keywords: ['COVID-19', 'Tweet Classification', 'Machine Learning', 'Sentiment Analysis'],
     type: 'conference',
     mediaFolder: '2022-covid-tweet-classification',
+  },
+  {
+    title: 'A Device for the Production of Ethanol from Lignocellulosic Biomass',
+    authors: ['Latika Bhatia', 'Dipankar Ghosh', 'Dilip Kumar Sahu', 'Prakash Kumar Sarangi', 'Nilesh Verma'],
+    venue: 'DE Patent 202,022,102,746',
+    year: 2022,
+    date: '2022',
+    abstract:
+      'A patented device designed for the efficient production of ethanol from lignocellulosic biomass. The invention addresses the conversion of plant-based cellulosic materials into bioethanol through an optimized production process.',
+    keywords: ['Ethanol', 'Lignocellulosic Biomass', 'Biofuel', 'Patent', 'Renewable Energy'],
+    type: 'patent',
+    mediaFolder: '2022-ethanol-patent',
   },
   {
     title: 'Lexicon-based Sentiment Analysis Using Twitter Data — A Case of COVID-19 Outbreak in India and Abroad',
@@ -146,6 +171,19 @@ const publications: Publication[] = [
     paperLink: 'https://nileshverma.com/publication/lexicon-based-sentiment-analysis/',
     type: 'book-chapter',
     mediaFolder: '2021-lexicon-sentiment-analysis',
+  },
+  {
+    title: 'Deep Image Search — AI-Based Image Search Engine',
+    authors: ['Nilesh Verma'],
+    venue: 'GitHub — Open Source Software',
+    year: 2021,
+    date: '2021',
+    abstract:
+      'An AI-based image search engine leveraging deep transfer learning for visual similarity search. The library enables efficient reverse image search using pre-trained deep learning models to extract visual features and find similar images from large datasets.',
+    keywords: ['Image Search', 'Deep Learning', 'Transfer Learning', 'Computer Vision', 'Open Source'],
+    paperLink: 'https://github.com/TechyNilesh/DeepImageSearch',
+    type: 'journal',
+    mediaFolder: '2021-deep-image-search',
   },
   {
     title: 'Classification of Pima Indian Diabetes Dataset Using Decision Tree Techniques',

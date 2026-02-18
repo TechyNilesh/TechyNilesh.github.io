@@ -3,9 +3,6 @@ import { useLocation } from 'react-router-dom';
 import Hero from './sections/Hero';
 import About from './sections/About';
 import Experience from './sections/Experience';
-import Publications from './sections/Publications';
-import OpenSource from './sections/OpenSource';
-import Projects from './sections/Projects';
 import Skills from './sections/Skills';
 import Achievements from './sections/Achievements';
 import Education from './sections/Education';
@@ -28,9 +25,6 @@ export default function HomePage() {
       <Hero />
       <About />
       <Experience />
-      <Publications />
-      <OpenSource />
-      <Projects />
       <Skills />
       <Achievements />
       <Education />

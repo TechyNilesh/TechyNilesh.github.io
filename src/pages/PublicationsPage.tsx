@@ -46,7 +46,7 @@ function PdfThumbnail({
         canvas.height = scaled.height;
 
         await page.render({
-          canvasContext: canvas.getContext('2d')!,
+          canvas,
           viewport: scaled,
         }).promise;
 
@@ -307,10 +307,6 @@ export default function PublicationsPage() {
           const bibFile = pub.mediaFolder ? getBibFile(pub.mediaFolder) : null;
           const lightboxMedia = allMedia.filter(m => m.type !== 'document');
           const hasMedia = allMedia.length > 0;
-          const pdfPreview = allMedia.find(
-            (m) => m.type === 'document' && m.ext.toLowerCase() === 'pdf'
-          );
-
           const openInLightbox = (media: DiscoveredMedia) => {
             if (media.type === 'document') {
               window.open(media.path, '_blank');
@@ -338,46 +334,103 @@ export default function PublicationsPage() {
                 onClick={() => toggle(index)}
                 className="w-full text-left group"
               >
-                <div className={`flex flex-col gap-4 ${pdfPreview ? 'sm:flex-row sm:items-start' : ''}`}>
-                  {pdfPreview && (
-                    <PdfThumbnail
-                      src={pdfPreview.path}
-                      className="w-full h-40 sm:w-28 sm:h-36 sm:shrink-0 pointer-events-none"
-                    />
-                  )}
-
-                  <div className="min-w-0 flex-1">
-                    <div className="flex justify-between items-start gap-4">
-                      <h2 className="font-serif text-xl leading-snug text-foreground group-hover:text-primary transition-colors">
-                        {pub.title}
-                      </h2>
-                      <div className="shrink-0 pt-1">
-                        {isExpanded ? (
-                          <ChevronUp className="w-4 h-4 text-muted-foreground" />
-                        ) : (
-                          <ChevronDown className="w-4 h-4 text-muted-foreground" />
-                        )}
-                      </div>
-                    </div>
-                    <p className="text-sm text-muted-foreground mt-1">
-                      {pub.authors.join(', ')}
-                    </p>
-                    <div className="flex items-center justify-between mt-2">
-                      <div className="flex items-center gap-3">
-                        <span className="text-xs font-medium uppercase tracking-widest text-muted-foreground/60 border-b border-muted-foreground/30">
-                          {pub.venue.split('—')[0].trim()}
-                        </span>
-                        <span className="text-xs text-muted-foreground/50">{pub.date}</span>
-                      </div>
-                      <span className="text-xs text-muted-foreground/60 border border-border/50 px-2 py-0.5 rounded-full">
-                        {typeLabel(pub.type)}
-                      </span>
-                    </div>
+                <div className="flex justify-between items-start gap-4">
+                  <h2 className="font-serif text-xl leading-snug text-foreground group-hover:text-primary transition-colors">
+                    {pub.title}
+                  </h2>
+                  <div className="shrink-0 pt-1">
+                    {isExpanded ? (
+                      <ChevronUp className="w-4 h-4 text-muted-foreground" />
+                    ) : (
+                      <ChevronDown className="w-4 h-4 text-muted-foreground" />
+                    )}
                   </div>
+                </div>
+                <p className="text-sm text-muted-foreground mt-1">
+                  {pub.authors.join(', ')}
+                </p>
+                <div className="flex items-center justify-between mt-2">
+                  <div className="flex items-center gap-3">
+                    <span className="text-xs font-medium uppercase tracking-widest text-muted-foreground/60 border-b border-muted-foreground/30">
+                      {pub.venue.split('—')[0].trim()}
+                    </span>
+                    <span className="text-xs text-muted-foreground/50">{pub.date}</span>
+                  </div>
+                  <span className="text-xs text-muted-foreground/60 border border-border/50 px-2 py-0.5 rounded-full">
+                    {typeLabel(pub.type)}
+                  </span>
                 </div>
               </button>
 
-              {/* Expanded content */}
+                    {/* Media thumbnails — always visible */}
+                    {hasMedia && allMedia.length === 1 && (
+                      <div className="mt-4">
+                        <MediaThumbnail
+                          media={allMedia[0]}
+                          title={pub.title}
+                          className="w-full sm:w-64 h-48"
+                          onClick={() => openInLightbox(allMedia[0])}
+                        />
+                      </div>
+                    )}
+
+                    {hasMedia && allMedia.length > 1 && (
+                      <div className="flex gap-3 overflow-x-auto pb-1 scrollbar-thin scrollbar-thumb-border scrollbar-track-transparent mt-4">
+                        {allMedia.map((media, i) => (
+                          <MediaThumbnail
+                            key={i}
+                            media={media}
+                            title={`${pub.title} ${i + 1}`}
+                            className="shrink-0 w-52 h-40"
+                            onClick={() => openInLightbox(media)}
+                          />
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Links — always visible */}
+                    {(pub.doi || pub.paperLink || bibFile) && (
+                      <div className="flex flex-wrap items-center gap-4 mt-3">
+                        {pub.doi && (
+                          <a
+                            href={pub.doi}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1.5 text-xs text-primary hover:underline"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <ExternalLink className="w-3 h-3" />
+                            DOI
+                          </a>
+                        )}
+                        {pub.paperLink && (
+                          <a
+                            href={pub.paperLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1.5 text-xs text-primary hover:underline"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <ExternalLink className="w-3 h-3" />
+                            View Paper
+                          </a>
+                        )}
+                        {bibFile && (
+                          <a
+                            href={bibFile}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1.5 text-xs text-primary hover:underline"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <BookOpen className="w-3 h-3" />
+                            BibTeX
+                          </a>
+                        )}
+                      </div>
+                    )}
+
+              {/* Expanded content — abstract & keywords only */}
               <AnimatePresence>
                 {isExpanded && (
                   <motion.div
@@ -388,30 +441,6 @@ export default function PublicationsPage() {
                     className="overflow-hidden"
                   >
                     <div className="pt-5 space-y-4">
-                      {/* Media thumbnails (images, videos, PDF first-page previews) */}
-                      {hasMedia && allMedia.length === 1 && (
-                        <MediaThumbnail
-                          media={allMedia[0]}
-                          title={pub.title}
-                          className="w-full sm:w-64 h-48"
-                          onClick={() => openInLightbox(allMedia[0])}
-                        />
-                      )}
-
-                      {hasMedia && allMedia.length > 1 && (
-                        <div className="flex gap-3 overflow-x-auto pb-1 scrollbar-thin scrollbar-thumb-border scrollbar-track-transparent">
-                          {allMedia.map((media, i) => (
-                            <MediaThumbnail
-                              key={i}
-                              media={media}
-                              title={`${pub.title} ${i + 1}`}
-                              className="shrink-0 w-52 h-40"
-                              onClick={() => openInLightbox(media)}
-                            />
-                          ))}
-                        </div>
-                      )}
-
                       {/* Abstract */}
                       <div>
                         <h3 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-2">
@@ -440,43 +469,6 @@ export default function PublicationsPage() {
                           </div>
                         </div>
                       )}
-
-                      {/* Links */}
-                      <div className="flex flex-wrap items-center gap-4 pt-2">
-                        {pub.doi && (
-                          <a
-                            href={pub.doi}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1.5 text-xs text-primary hover:underline"
-                          >
-                            <ExternalLink className="w-3 h-3" />
-                            DOI
-                          </a>
-                        )}
-                        {pub.paperLink && (
-                          <a
-                            href={pub.paperLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1.5 text-xs text-primary hover:underline"
-                          >
-                            <ExternalLink className="w-3 h-3" />
-                            View Paper
-                          </a>
-                        )}
-                        {bibFile && (
-                          <a
-                            href={bibFile}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1.5 text-xs text-primary hover:underline"
-                          >
-                            <BookOpen className="w-3 h-3" />
-                            BibTeX
-                          </a>
-                        )}
-                      </div>
                     </div>
                   </motion.div>
                 )}
