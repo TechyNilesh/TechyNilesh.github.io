@@ -112,6 +112,16 @@ const mediaItems: MediaItem[] = [
     tags: ['Gold Medal', 'Computer Science', 'M.Sc.', 'Academic Excellence'],
     mediaFolder: 'msc-gold-medal-ceremony',
   },
+  {
+    title: 'B.Sc. Gold Medal — Governor of Chhattisgarh',
+    type: 'news',
+    date: '2019',
+    description:
+      'Received the Gold Medal for B.Sc. from Her Excellency, the Governor of Chhattisgarh, at the convocation ceremony.',
+    source: 'Atal Bihari Vajpayee University',
+    tags: ['Gold Medal', 'B.Sc.', 'Academic Excellence', 'Convocation'],
+    mediaFolder: 'bsc-gold-medal-ceremony',
+  },
 ];
 
 export default mediaItems;
