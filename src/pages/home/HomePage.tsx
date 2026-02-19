@@ -1,6 +1,16 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import SEO from '../../components/SEO';
+import LazySection from '../../components/LazySection';
+import {
+  AboutSkeleton,
+  ExperienceSkeleton,
+  SkillsSkeleton,
+  AchievementsSkeleton,
+  EducationSkeleton,
+  CertificationsSkeleton,
+  ResumeSkeleton,
+} from '../../components/SectionSkeletons';
 import Hero from './sections/Hero';
 import About from './sections/About';
 import Experience from './sections/Experience';
@@ -51,13 +61,27 @@ export default function HomePage() {
         jsonLd={personJsonLd}
       />
       <Hero />
-      <About />
-      <Experience />
-      <Skills />
-      <Achievements />
-      <Education />
-      <Certifications />
-      <Resume />
+      <LazySection skeleton={<AboutSkeleton />}>
+        <About />
+      </LazySection>
+      <LazySection skeleton={<ExperienceSkeleton />}>
+        <Experience />
+      </LazySection>
+      <LazySection skeleton={<SkillsSkeleton />}>
+        <Skills />
+      </LazySection>
+      <LazySection skeleton={<AchievementsSkeleton />}>
+        <Achievements />
+      </LazySection>
+      <LazySection skeleton={<EducationSkeleton />}>
+        <Education />
+      </LazySection>
+      <LazySection skeleton={<CertificationsSkeleton />}>
+        <Certifications />
+      </LazySection>
+      <LazySection skeleton={<ResumeSkeleton />}>
+        <Resume />
+      </LazySection>
     </main>
   );
 }

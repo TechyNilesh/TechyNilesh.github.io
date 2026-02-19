@@ -81,14 +81,23 @@ export default function Blog() {
       </div>
 
       {isLoading && (
-        <div className="space-y-8">
-          {[...Array(4)].map((_, i) => (
-            <div key={i} className="animate-pulse flex gap-5 py-4">
-              <div className="shrink-0 w-32 h-24 sm:w-44 sm:h-28 bg-muted/50 rounded-lg" />
+        <div className="space-y-8 animate-pulse">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <div key={i} className="flex flex-col sm:flex-row gap-5 -mx-4 px-4 py-4 rounded-xl">
+              <div className="shrink-0 w-full sm:w-44 h-40 sm:h-28 bg-muted-foreground/10 rounded-lg" />
               <div className="flex-1 space-y-3">
-                <div className="h-6 bg-muted/50 rounded w-3/4" />
-                <div className="h-4 bg-muted/30 rounded w-1/4" />
-                <div className="h-4 bg-muted/30 rounded w-full" />
+                <div className="h-5 bg-muted-foreground/10 rounded w-4/5" />
+                <div className="h-5 bg-muted-foreground/10 rounded w-3/5" />
+                <div className="h-3 bg-muted-foreground/8 rounded w-28" />
+                <div className="space-y-2">
+                  <div className="h-3.5 bg-muted-foreground/8 rounded w-full" />
+                  <div className="h-3.5 bg-muted-foreground/8 rounded w-2/3" />
+                </div>
+                <div className="flex gap-2 pt-1">
+                  {Array.from({ length: 3 }).map((_, j) => (
+                    <div key={j} className="h-5 w-16 bg-muted-foreground/8 rounded-full" />
+                  ))}
+                </div>
               </div>
             </div>
           ))}
@@ -111,7 +120,7 @@ export default function Blog() {
       )}
 
       {!isLoading && !error && (
-        <>
+        <div className="animate-fadeIn">
           <div className="space-y-8">
             {posts.map((post) => {
               const cover = getCoverImage(post);
@@ -183,7 +192,7 @@ export default function Blog() {
               <ExternalLink className="w-3 h-3" />
             </a>
           </div>
-        </>
+        </div>
       )}
     </main>
   );
