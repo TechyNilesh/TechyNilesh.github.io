@@ -1,10 +1,4 @@
-import { Linkedin, Github, Mail, FileText, MapPin, GraduationCap } from 'lucide-react';
-
-const MediumIcon = ({ className }: { className?: string }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor" className={className}>
-    <path d="M0 32v448h448V32H0zm372.2 106.1l-24 23c-2.1 1.6-3.1 4.2-2.7 6.7v169.3c-.4 2.6.6 5.2 2.7 6.7l23.5 23v5.1h-118V367l24.3-23.6c2.4-2.4 2.4-3.1 2.4-6.7V199.8l-67.6 171.6h-9.1L125 199.8v115c-.7 4.8 1 9.7 4.4 13.2l31.6 38.3v5.1H71.2v-5.1l31.6-38.3c3.4-3.5 4.9-8.4 4.1-13.2v-133c.4-3.7-1-7.3-3.8-9.8L75 138.1V133h87.3l67.4 148L289 133.1h83.2v5z" />
-  </svg>
-);
+import { Linkedin, Github, Mail, MapPin, GraduationCap } from 'lucide-react';
 
 const XIcon = ({ className }: { className?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={className}>
@@ -12,12 +6,17 @@ const XIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
+const GoogleScholarIcon = ({ className }: { className?: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={className}>
+    <path d="M5.242 13.769L0 9.5 12 0l12 9.5-5.242 4.269C17.548 11.249 14.978 9.5 12 9.5c-2.977 0-5.548 1.748-6.758 4.269zM12 10a7 7 0 1 0 0 14 7 7 0 0 0 0-14z" />
+  </svg>
+);
+
 const socialLinks = [
   { icon: Linkedin, href: 'https://www.linkedin.com/in/techynilesh/', label: 'LinkedIn' },
   { icon: Github, href: 'https://github.com/TechyNilesh', label: 'GitHub' },
+  { icon: GoogleScholarIcon, href: 'https://scholar.google.com/citations?user=ymceHxcAAAAJ&hl=en', label: 'Google Scholar' },
   { icon: XIcon, href: 'https://x.com/techynilesh', label: 'X' },
-  { icon: MediumIcon, href: 'https://medium.com/@techynilesh', label: 'Medium' },
-  { icon: FileText, href: '/Nilesh-Verma-CV-Latest.pdf', label: 'CV' },
   { icon: Mail, href: 'mailto:me@nileshverma.com', label: 'Email' },
 ];
 

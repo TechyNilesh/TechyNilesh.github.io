@@ -8,6 +8,7 @@ import Skills from './sections/Skills';
 import Achievements from './sections/Achievements';
 import Education from './sections/Education';
 import Certifications from './sections/Certifications';
+import Resume from './sections/Resume';
 
 const personJsonLd = {
   '@context': 'https://schema.org',
@@ -24,7 +25,6 @@ const personJsonLd = {
     'https://www.linkedin.com/in/techynilesh/',
     'https://github.com/TechyNilesh',
     'https://x.com/techynilesh',
-    'https://medium.com/@techynilesh',
     'https://scholar.google.com/citations?user=ymceHxcAAAAJ&hl=en',
   ],
 };
@@ -57,6 +57,7 @@ export default function HomePage() {
       <Achievements />
       <Education />
       <Certifications />
+      <Resume />
     </main>
   );
 }
