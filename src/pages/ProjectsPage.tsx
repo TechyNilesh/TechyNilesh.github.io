@@ -29,16 +29,25 @@ function MediaThumbnail({
   className?: string;
   onClick: () => void;
 }) {
+  const [imgLoaded, setImgLoaded] = useState(false);
+
   if (media.type === 'image') {
     return (
       <div
         className={`overflow-hidden rounded-xl bg-muted/30 relative cursor-zoom-in ${className}`}
         onClick={onClick}
       >
+        {!imgLoaded && (
+          <div className="absolute inset-0 animate-pulse bg-muted-foreground/10 rounded-xl" />
+        )}
         <img
           src={media.path}
           alt={title}
-          className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+          loading="lazy"
+          onLoad={() => setImgLoaded(true)}
+          className={`w-full h-full object-cover hover:scale-105 transition-all duration-500 ${
+            imgLoaded ? 'opacity-100' : 'opacity-0'
+          }`}
         />
       </div>
     );
@@ -66,6 +75,7 @@ function MediaThumbnail({
 export default function ProjectsPage() {
   const [activeFilter, setActiveFilter] = useState<ProjectType | 'all'>('all');
   const [selectedMedia, setSelectedMedia] = useState<LightboxState>(null);
+  const [lightboxLoaded, setLightboxLoaded] = useState(false);
   const githubUrls = projects.filter(p => p.github).map(p => p.github!);
   const starsMap = useAllGitHubStars(githubUrls);
 
@@ -88,6 +98,7 @@ export default function ProjectsPage() {
       if (nextIndex < 0) nextIndex = prev.gallery.length - 1;
 
       const nextItem = prev.gallery[nextIndex];
+      setLightboxLoaded(false);
       return {
         type: nextItem.type === 'video' ? 'local-video' : 'image',
         url: nextItem.path,
@@ -108,6 +119,7 @@ export default function ProjectsPage() {
   }, [handleKeyDown]);
 
   const openInLightbox = (media: DiscoveredMedia, gallery: DiscoveredMedia[]) => {
+    setLightboxLoaded(false);
     setSelectedMedia({
       type: media.type === 'video' ? 'local-video' : 'image',
       url: media.path,
@@ -297,11 +309,22 @@ export default function ProjectsPage() {
             onClick={(e) => e.stopPropagation()}
           >
             {selectedMedia.type === 'image' ? (
-              <img
-                src={selectedMedia.url}
-                alt="Enlarged view"
-                className="max-w-full max-h-full object-contain rounded-lg shadow-2xl shadow-black/50"
-              />
+              <div className="relative max-w-full max-h-full flex items-center justify-center">
+                {!lightboxLoaded && (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-64 h-48 sm:w-96 sm:h-72 rounded-lg animate-pulse bg-muted-foreground/10" />
+                  </div>
+                )}
+                <img
+                  key={selectedMedia.url}
+                  src={selectedMedia.url}
+                  alt="Enlarged view"
+                  onLoad={() => setLightboxLoaded(true)}
+                  className={`max-w-full max-h-full object-contain rounded-lg shadow-2xl shadow-black/50 transition-opacity duration-500 ${
+                    lightboxLoaded ? 'opacity-100' : 'opacity-0'
+                  }`}
+                />
+              </div>
             ) : (
               <video
                 key={selectedMedia.url}
